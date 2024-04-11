@@ -1,0 +1,5 @@
+﻿.product-images {
+    width: 100%; /* Kích thước chiều rộng tối đa của hình ảnh */
+    height: auto; /* Chiều cao tự động để duy trì tỷ lệ khung */
+    max-width: 200px; /* Kích thước tối đa của hình ảnh */
+}

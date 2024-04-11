@@ -2,58 +2,81 @@
 
 @{
     ViewData["Title"] = "Index";
+    int numOfQuantity = 1;
 }
 
-<h1>Index</h1>
+<style>
+    .price {
+        color: red;
+    }
+</style>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="list-group" id="categoryList">
+            <button type="button" class="list-group-item list-group-item-action category-btn" data-toggle="collapse" data-target="#categoryCollapse" aria-expanded="false" aria-controls="categoryCollapse">
+                Tìm theo loại
+            </button>
+            <div class="collapse" id="categoryCollapse">
+                <a href="#" class="list-group-item list-group-item-action category-item" data-category="">Tất cả sản phẩm</a>
+                @foreach (var category in Model.Select(p => p.Category.Name).Distinct())
+                {
+                    <a href="#" class="list-group-item list-group-item-action category-item" data-category="@category">@category</a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-9">
+        <h4 class="text-center">Tất cả sản phẩm</h4>
+        <div class="row mt-3" id="productList">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4 category-item" data-category="@item.Category.Name">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="@item.ImageUrl" alt="@item.Name">
+                        <div class="card-body">
+                            <h4 class="card-title">@item.Name</h4>
+                            <h5 class="price">@item.Price $</h5>
+                            <form asp-controller="ShoppingCart" asp-action="AddToCart" method="post">
+                                <input type="hidden" name="productId" value="@item.Id" />
+                                <div class="input-group mb-3">
+                                    <input type="number" class="form-control" name="quantity" value="1" min="1">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-dark"><i class="bi-cart-fill me-1"></i> Thêm vào giỏ hàng
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">@item.Category.Name</small>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info ml-2">Chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".category-btn").on("click", function () {
+                $("#categoryCollapse").collapse("toggle");
+            });
+
+            $(".category-item").on("click", function () {
+                var category = $(this).data("category");
+                $(".category-item").removeClass("active");
+                $(this).addClass("active");
+                if (category === "") {
+                    $("#productList .category-item").show();
+                } else {
+                    $("#productList .category-item").hide();
+                    $("#productList .category-item[data-category='" + category + "']").show();
+                }
+            });
+        });
+    </script>
 }
-    </tbody>
-</table>

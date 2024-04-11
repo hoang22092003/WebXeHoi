@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Data;
+using WebXeHoi.Controllers;
 using WebXeHoi.Models;
 using WebXeHoi.Repositories;
 
-namespace WebXeHoi.Controllers
+namespace WebXeHoi.Areas.Admin.Controllers
 {
-
-    public class ProductController : Controller
+    [Area("Admin")]
+    [Authorize(Roles ="admin")]
+    public class ProductManagerController : Controller
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
 
-        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository)
+        public ProductManagerController(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
@@ -22,23 +23,11 @@ namespace WebXeHoi.Controllers
         // Hiển thị danh sách sản phẩm
         public async Task<IActionResult> Index()
         {
-            // Lấy danh sách sản phẩm từ repository
             var products = await _productRepository.GetAllAsync();
-
-            // Lấy danh sách các category từ cơ sở dữ liệu
-            var categories = await _categoryRepository.GetAllAsync();
-
-            // Gán danh sách category vào ViewBag.Categories
-            ViewBag.Categories = categories;
-
-            // Trả về view với danh sách sản phẩm
             return View(products);
         }
-
-
-
-        // Xử lý thêm sản phẩm mới
-        public async Task<IActionResult> Create(Product product ,IFormFile ImageUrl)
+        // Hiển thị form thêm sản phẩm mới
+        public async Task<IActionResult> Create(Product product, IFormFile ImageUrl)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +88,7 @@ namespace WebXeHoi.Controllers
         //Hien thi chi tiet 1 san pham
         public async Task<IActionResult> Details(int id)
         {
-            var product =  await _productRepository.GetByIdAsync(id);
+            var product = await _productRepository.GetByIdAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -124,5 +113,12 @@ namespace WebXeHoi.Controllers
             await _productRepository.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
+
+        public static implicit operator ProductManagerController(ProductController v)
+        {
+            throw new NotImplementedException();
+        }
     }
+
 }
+

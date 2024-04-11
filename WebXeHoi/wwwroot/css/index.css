@@ -1,0 +1,40 @@
+﻿/* ~/css/index.css */
+
+/* Nền background màu gradient */
+.bg-image {
+    background: linear-gradient(45deg, #4CAF50, #2196F3), url('../img/background.jpg'); /* Gradient từ xanh lá cây đến xanh lam và hình ảnh nền */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Tiêu đề chính */
+.display-4 {
+    font-size: 3.5em; /* Kích thước font lớn */
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+}
+
+/* Phần văn bản */
+p {
+    font-size: 1.2em; /* Kích thước font chữ cho văn bản */
+    margin-bottom: 30px; /* Khoảng cách dưới văn bản */
+}
+
+/* Link */
+a {
+    color: #FFEB3B; /* Màu vàng cho link */
+    text-decoration: none; /* Không gạch chân link */
+}
+
+/* Footer */
+.footer {
+    background-color: #333; /* Màu nền đen cho footer */
+    padding: 10px 0; /* Khoảng cách padding */
+    text-align: center;
+}

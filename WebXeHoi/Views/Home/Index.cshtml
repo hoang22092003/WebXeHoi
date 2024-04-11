@@ -1,8 +1,39 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Image</title>
+    <style>
+        .bg-image {
+            background-image: url('https://khoinguonsangtao.vn/wp-content/uploads/2022/07/hinh-nen-lamborghini-4k-cho-may-tinh.jpg'); /* Đường dẫn đến ảnh nền */
+            background-size: cover; /* Phủ toàn bộ kích thước của phần tử */
+            background-position: center; /* Canh giữa ảnh nền */
+            height: 100vh; /* Chiều cao của phần tử bằng chiều cao của màn hình */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+        .container {
+            background-color: rgba(255, 255, 255, 0.7); /* Màu nền trong suốt */
+            padding: 20px; /* Khoảng cách giữa nội dung và viền */
+            border-radius: 10px; /* Độ cong viền */
+        }
+
+        h1 {
+            color: #333; /* Màu chữ đen */
+            font-family: Arial, sans-serif; /* Phông chữ */
+            font-size: 3em; /* Kích thước chữ */
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-image">
+        <div class="container">
+            <h1 class="display-4">ĐẠI LÝ BÁN XE </h1>
+        </div>
+    </div>
+</body>
+</html>

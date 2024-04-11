@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WebXeHoi.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    <p class="card-text">Price: @Html.DisplayFor(modelItem => item.Price)</p>
+                    @if (item.Category != null) // Kiểm tra xem category có null hay không trước khi truy cập
+                    {
+                        <p class="card-text">Category: @Html.DisplayFor(modelItem => item.Category.Name)</p>
+                    }
+                    <form asp-controller="ShoppingCart" asp-action="AddToCart" method="post">
+                        <input type="hidden" name="productId" value="@item.Id" />
+                        <label for="quantity">Số lượng</label>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" />
+                        <button class="btn btn-info" type="submit">Thêm vào giỏ hàng</button>
+                        <button href="#" class="btn btn-info" onclick="showProductInfo('@item.Id')">Thông tin sản phẩm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    function showProductInfo(productId) {
+        // Điều hướng đến trang thông tin chi tiết sản phẩm
+        window.location.href = "/Product/Details/" + productId;
+    }
+</script>
