@@ -1,56 +1,38 @@
 ﻿@model WebXeHoi.Models.Product
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi tiết sản phẩm";
 }
 
-<style>
-    /* CSS để điều chỉnh kích thước hình ảnh */
-    .product-image {
-        width: 200px; /* Đặt chiều rộng mong muốn */
-        height: auto; /* Chiều cao tự động điều chỉnh theo tỷ lệ */
-    }
-</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4 class="card-title">Thông tin chi tiết sản phẩm</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Tên:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
 
-<h1>Details</h1>
+                        <dt class="col-sm-3">Giá:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Price)</dd>
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class="col-sm-10">
-            <img src="@Model.ImageUrl" class="product-image" /> <!-- Thêm class "product-image" vào hình ảnh -->
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+                        <dt class="col-sm-3">Mô tả:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+                        <dt class="col-sm-3">Ảnh:</dt>
+                        <dd class="col-sm-9">
+                            <img src="@Model.ImageUrl" class="img-fluid product-image" alt="Ảnh sản phẩm">
+                        </dd>
+                    </dl>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Chỉnh sửa</a>
+                    <a asp-action="Index" class="btn btn-secondary">Quay lại trang chính</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

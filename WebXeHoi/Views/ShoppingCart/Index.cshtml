@@ -1,33 +1,52 @@
 ﻿@model ShoppingCart
-<h2>Giỏ hàng của bạn</h2>
-<table class="table">
-	<tr>
-		<th>Product</th>
-		<th>Quantity</th>
-		<th>Price</th>
-		<th>Total</th>
-	</tr>
-	@foreach (var item in Model.Items)
-	{
-	<tr>
-	<td>@item.Name</td>
-	<td>
-		<form asp-controller="ShoppingCart" asp-action="UpdateQuantity" method="post">
-					<input type="hidden" name="productId" value="@item.ProductId" />
-					<label for="quantity">Số lượng</label>
-					<input type="number" id="quantity" name="quantity" value="@item.Quantity" />
-					<button class="btn btn-primary" type="submit">Cập nhật</button>	
-		</form>
-	</td>
-	<td>@item.Price</td>
-	<td>@(item.Price * item.Quantity)</td>
-		<td>
-			<a asp-action="RemoveFromCart" asp-route-productId="@item.ProductId">Xóa</a>
 
-		</td>
-	</tr>
-	}
-</table>
-<div style="display: flex">
-	<a asp-action="Checkout" asp-controller="ShoppingCart">Tiến hành đặt hàng</a>
+<h2>Giỏ hàng của bạn</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Sản phẩm</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Giá</th>
+                <th scope="col">Tổng giá</th>
+                <th scope="col">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>
+                        <form asp-controller="ShoppingCart" asp-action="UpdateQuantity" method="post">
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <div class="input-group">
+                                <input type="number" id="quantity-@item.ProductId" name="quantity" class="form-control" value="@item.Quantity" min="1">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">Cập nhật</button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                    <td>@item.Price</td>
+                    <td>@(item.Price * item.Quantity)</td>
+                    <td>
+                        <form asp-controller="ShoppingCart" asp-action="RemoveFromCart" method="post">
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <button type="submit" class="btn btn-danger">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-right mb-3">
+    <a asp-action="Checkout" asp-controller="ShoppingCart" class="btn btn-success">Tiến hành đặt hàng</a>
+</div>
+
+<div class="text-left">
+    <a href="/Product/Index" class="btn btn-secondary">Quay lại trang sản phẩm</a>
 </div>
