@@ -21,6 +21,13 @@
             Items.RemoveAll(i => i.ProductId == productId);
         }
 
-
+        public void UpdateQuantity(int producId, int quantity)
+        {
+            var item = Items.FirstOrDefault(i => i.ProductId == producId);
+            if (item != null)
+            {
+                item.Quantity = quantity;
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using WebXeHoi.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebXeHoi.Repository;
+
 
 namespace WebXeHoi.Areas.Admin.Controllers
 {
@@ -9,16 +9,16 @@ namespace WebXeHoi.Areas.Admin.Controllers
     [Authorize(Roles = "admin")]
     public class OrderManagerController : Controller
     {
-        private readonly IOrderRepositorycs _orderRepositorycs;
+        private readonly IOrderRepository _orderRepository;
 
-        public OrderManagerController(IOrderRepositorycs orderRepositorycs)
+        public OrderManagerController(IOrderRepository orderRepository)
         {
-            _orderRepositorycs = orderRepositorycs;
+            _orderRepository = orderRepository;
 
         }
         public async Task<IActionResult> Index()
         {
-            var orders = await _orderRepositorycs.GetAllAsync();
+            var orders = await _orderRepository.GetAllAsync();
             return View(orders);
         }
     }

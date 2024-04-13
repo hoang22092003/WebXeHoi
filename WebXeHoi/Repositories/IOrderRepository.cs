@@ -1,8 +1,8 @@
 ﻿using WebXeHoi.Models;
 
-namespace WebXeHoi.Repository
+namespace WebXeHoi.Repositories
 {
-    public interface IOrderRepositorycs
+    public interface IOrderRepository
     {
         Task<IEnumerable<Order>> GetAllAsync();
     }
