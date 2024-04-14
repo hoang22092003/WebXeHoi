@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Chi tiết sản phẩm";
 }
-
+    
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -17,15 +17,15 @@
                         <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
 
                         <dt class="col-sm-3">Giá:</dt>
-                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Price)</dd>
-
-                        <dt class="col-sm-3">Mô tả:</dt>
-                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Price)</dd>                       
 
                         <dt class="col-sm-3">Ảnh:</dt>
                         <dd class="col-sm-9">
                             <img src="@Model.ImageUrl" class="img-fluid product-image" alt="Ảnh sản phẩm">
                         </dd>
+
+						<dt class="col-sm-3">Mô tả:</dt>
+						<dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
                     </dl>
                 </div>
                 <div class="card-footer">
